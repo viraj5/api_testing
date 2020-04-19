@@ -17,7 +17,8 @@ class basics {
         RestAssured.baseURI = "https://rahulshettyacademy.com";
         String response = given().log().all().queryParam("key", "qaclick123").header("Content-Type", "application/json")
                 .body(payload.getPayload())
-                .when().post("/maps/api/place/add/json").then().log().all().assertThat().statusCode(200).body("scope", equalTo("APP")).extract().response().asString();
+                .when().post("/maps/api/place/add/json")
+                .then().log().all().assertThat().statusCode(200).body("scope", equalTo("APP")).extract().response().asString();
 
         System.out.println(response);
         JsonPath js = new JsonPath(response); // for parsing the json
@@ -39,10 +40,10 @@ class basics {
         String getPlaceResponse = given().log().all().queryParam("key", "qaclick123").queryParam("place_id", place_id)
                 .when().get("/maps/api/place/get/json")
                 .then().log().all().assertThat().statusCode(200).extract().response().asString();
-
+        // parsing the json file
         JsonPath js1 = new JsonPath(getPlaceResponse);
         String actual_address = js1.getString("address");
-        System.out.println(actual_address);
+        //validating the address
         Assert.assertEquals(actual_address, new_address);
     }
 }
