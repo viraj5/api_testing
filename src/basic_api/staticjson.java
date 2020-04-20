@@ -1,3 +1,5 @@
+package basic_api;
+
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import org.testng.annotations.Test;
@@ -14,7 +16,7 @@ public class staticjson {
         return new String(Files.readAllBytes(Paths.get(path)));
     }
 
-    // using static json file to give payload to api
+    // using static json file to give basic_api.payload to api
     @Test
     public void addBook() throws IOException {
         RestAssured.baseURI = "http://216.10.245.166";
