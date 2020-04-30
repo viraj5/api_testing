@@ -2,6 +2,7 @@ package pojo;
 
 import java.util.List;
 
+// pojo class for course object in getCourse class, parent of (Webautomation,mobile,api classes)
 public class Courses {
     private List<WebAutomation> webAutomation;
     private List<Api> api;
@@ -30,8 +31,6 @@ public class Courses {
     public void setMobile(List<Mobile> mobile) {
         this.mobile = mobile;
     }
-
-
 
 
 }

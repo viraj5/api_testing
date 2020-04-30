@@ -1,5 +1,5 @@
 package pojo;
-
+// pojo class for Webautomation
 public class WebAutomation {
 
     private String courseTitle;

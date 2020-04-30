@@ -1,5 +1,7 @@
 package pojo;
 
+
+// pojo class for mobile object
 public class Mobile {
 
     private String courseTitle;
@@ -20,8 +22,6 @@ public class Mobile {
     public void setPrice(String price) {
         this.price = price;
     }
-
-
 
 
 }

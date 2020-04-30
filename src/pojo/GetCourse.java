@@ -1,5 +1,6 @@
 package pojo;
 
+//pojo class for oauth class response(parent of courses class)
 public class GetCourse {
 
     private String url;
@@ -12,9 +13,11 @@ public class GetCourse {
     public String getUrl() {
         return url;
     }
+
     public void setUrl(String url) {
         this.url = url;
     }
+
     public String getServices() {
         return services;
     }

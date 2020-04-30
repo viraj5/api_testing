@@ -1,5 +1,6 @@
 package pojo;
 
+// pojo class for api
 public class Api {
 
     private String courseTitle;
