@@ -1,5 +1,4 @@
 package jira_api;
-
 import io.restassured.RestAssured;
 import io.restassured.filter.session.SessionFilter;
 import io.restassured.path.json.JsonPath;
@@ -33,16 +32,19 @@ public class jiratest {
 
         JsonPath js = new JsonPath(addCommentResponse);
         String actualcommentId = js.getString("id");
+
         // adding attachment to exsisting bug with key = 10101
         given().header("X-Atlassian-Token", "no-check").filter(session).pathParam("key", "10101").header("Content-Type", "multipart/form-data")
                 .multiPart("file", new File("src\\files\\sample.txt")).
                 when().post("/rest/api/2/issue/{key}/attachments").
                 then().log().all().assertThat().statusCode(200);
+
         //get issue with key 10101
         String issue_response = given().filter(session).pathParam("key", "10101").log().all().queryParam("fields", "comment")
                 .when().get("/rest/api/2/issue/{key}")
                 .then().log().all().extract().response().asString();
         System.out.println(issue_response);
+
         // validating the added comment using the response from get issue
         String actualComment = "";
         JsonPath js1 = new JsonPath(issue_response);
