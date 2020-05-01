@@ -3,6 +3,7 @@ package basic_api;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.builder.ResponseSpecBuilder;
 import io.restassured.http.ContentType;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import pojo.AddPlace;
@@ -40,10 +41,14 @@ public class SerializationTest {
         l.setLat(3.545354);
         l.setLng(5.340343);
         p.setLocation(l);
-
-        //adding the new place using the AddPlace object created earlier in body
-        String response = given().spec(req).log().all().queryParams("key", "qaclick123").body(p)
+        // creating request spec with body included
+        RequestSpecification res = given().spec(req).body(p);
+        //calling the add place api using spec builder created earlier
+        Response response = given().spec(res)
                 .when().post("/maps/api/place/add/json")
-                .then().spec(respec).extract().response().asString();
+                .then().spec(respec).extract().response();
+        //converting response into string and printing
+        String responsestr = response.asString();
+        System.out.println(responsestr);
     }
 }
