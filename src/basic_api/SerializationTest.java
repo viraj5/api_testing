@@ -1,6 +1,10 @@
 package basic_api;
 
-import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.builder.ResponseSpecBuilder;
+import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
+import io.restassured.specification.ResponseSpecification;
 import pojo.AddPlace;
 import pojo.Location;
 
@@ -12,6 +16,14 @@ import static io.restassured.RestAssured.given;
 public class SerializationTest {
 
     public static void main(String[] args) {
+        //creating request spec builder for google api
+        RequestSpecification req = new RequestSpecBuilder().setBaseUri("https://rahulshettyacademy.com")
+                .addQueryParam("key", "qaclick123")
+                .setContentType(ContentType.JSON).build();
+
+        // creating response spec builder for google api
+        ResponseSpecification respec = new ResponseSpecBuilder().expectStatusCode(200).expectContentType(ContentType.JSON).build();
+
         // cearting object of Addplace for body
         AddPlace p = new AddPlace();
         p.setAccuracy("50");
@@ -26,13 +38,12 @@ public class SerializationTest {
         p.setTypes(mylist);
         Location l = new Location();
         l.setLat(3.545354);
-        l.setLng(5.342343);
+        l.setLng(5.340343);
         p.setLocation(l);
 
         //adding the new place using the AddPlace object created earlier in body
-        RestAssured.baseURI = "https://rahulshettyacademy.com";
-        String response = given().log().all().queryParams("key", "qaclick123").body(p)
+        String response = given().spec(req).log().all().queryParams("key", "qaclick123").body(p)
                 .when().post("/maps/api/place/add/json")
-                .then().assertThat().statusCode(200).extract().response().asString();
+                .then().spec(respec).extract().response().asString();
     }
 }
